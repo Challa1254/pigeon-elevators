@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Location Finder</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .location-container {
+            width: 100%;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 25px;
+            background: #e63946;
+            color: white;
+        }
+
+        .section-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .location-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .city-selector {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .city-dropdown {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: white;
+            cursor: pointer;
+        }
+
+        .map-container {
+            height: 500px;
+        }
+
+        #locationMap {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .map-container {
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1rem;
+            }
+            
+            .map-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="location-container">
+        <div class="section-header">
+            <h1>Location</h1>
+            <h2>Select Your City</h2>
+        </div>
+        
+        <div class="location-content">
+            <div class="city-selector">
+                <select class="city-dropdown" id="cityDropdown">
+                    <option value="">Select a City</option>
+                    <option value="vijayawada">Vijayawada</option>
+                    <option value="hyderabad">Hyderabad</option>
+                    <option value="vizag">Visakhapatnam</option>
+                    <option value="tirupati">Tirupati</option>
+                    <option value="guntur">Guntur</option>
+                </select>
+            </div>
+            
+            <div class="map-container">
+                <div id="locationMap"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // City coordinates data
+            const cities = {
+                vijayawada: {
+                    name: "Vijayawada",
+                    lat: 16.5062,
+                    lng: 80.6480,
+                    zoom: 13,
+                    markers: [
+                        {
+                            lat: 16.5062,
+                            lng: 80.6480,
+                            title: "Benz Circle Clinic",
+                            address: "D.No: 45-67, Benz Circle, Vijayawada"
+                        },
+                        {
+                            lat: 16.5164,
+                            lng: 80.6306,
+                            title: "Governorpet Clinic",
+                            address: "D.No: 78-90, Governorpet, Vijayawada"
+                        }
+                    ]
+                },
+                hyderabad: {
+                    name: "Hyderabad",
+                    lat: 17.3850,
+                    lng: 78.4867,
+                    zoom: 12,
+                    markers: [
+                        {
+                            lat: 17.3850,
+                            lng: 78.4867,
+                            title: "Central Hyderabad Clinic",
+                            address: "Main Road, Hyderabad"
+                        }
+                    ]
+                },
+                vizag: {
+                    name: "Visakhapatnam",
+                    lat: 17.6868,
+                    lng: 83.2185,
+                    zoom: 13,
+                    markers: [
+                        {
+                            lat: 17.6868,
+                            lng: 83.2185,
+                            title: "Beach Road Clinic",
+                            address: "Near RK Beach, Visakhapatnam"
+                        }
+                    ]
+                },
+                tirupati: {
+                    name: "Tirupati",
+                    lat: 13.6288,
+                    lng: 79.4192,
+                    zoom: 14,
+                    markers: [
+                        {
+                            lat: 13.6288,
+                            lng: 79.4192,
+                            title: "Temple Street Clinic",
+                            address: "Near Tirumala Temple, Tirupati"
+                        }
+                    ]
+                },
+                guntur: {
+                    name: "Guntur",
+                    lat: 16.3067,
+                    lng: 80.4365,
+                    zoom: 13,
+                    markers: [
+                        {
+                            lat: 16.3067,
+                            lng: 80.4365,
+                            title: "Main City Clinic",
+                            address: "Center Point, Guntur"
+                        }
+                    ]
+                }
+            };
+
+            // Initialize map
+            const map = L.map('locationMap').setView([16.5062, 80.6480], 13);
+            
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Current markers
+            let currentMarkers = [];
+
+            // Function to update map for selected city
+            function updateMapForCity(cityId) {
+                const city = cities[cityId];
+                
+                // Clear existing markers
+                currentMarkers.forEach(marker => map.removeLayer(marker));
+                currentMarkers = [];
+                
+                // Fly to new city
+                map.flyTo([city.lat, city.lng], city.zoom);
+                
+                // Add new markers
+                city.markers.forEach(location => {
+                    const marker = L.marker([location.lat, location.lng]).addTo(map)
+                        .bindPopup(`<b>${location.title}</b><br>${location.address}`);
+                    currentMarkers.push(marker);
+                });
+            }
+
+            // Handle city dropdown change
+            document.getElementById('cityDropdown').addEventListener('change', function() {
+                const cityId = this.value;
+                if (cityId && cities[cityId]) {
+                    updateMapForCity(cityId);
+                }
+            });
+
+            // Initialize with Vijayawada
+            updateMapForCity('vijayawada');
+            document.getElementById('cityDropdown').value = 'vijayawada';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Elevator Installations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #003366;
+            --accent: #ff6b00;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        /* Installation Section Styles */
+        .installations-section {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--light) 0%, #e6f0ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--dark);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .installations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .installation-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .installation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .installation-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .features-list {
+            margin-bottom: 1.5rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        .features-list i {
+            color: var(--accent);
+            margin-right: 8px;
+            font-size: 0.9rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        /* Video Showcase */
+        .video-showcase {
+            max-width: 1000px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Technology Highlights */
+        .tech-highlights {
+            max-width: 1200px;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .tech-item h4 {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .section-header p {
+                font-size: 1rem;
+            }
+            
+            .installations-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tech-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <section class="installations-section">
+        <div class="section-header">
+            <h2 class="slide-in-left">New Elevator Installations</h2>
+            <p class="fade-in">Custom elevator solutions for new buildings with cutting-edge technology and unparalleled safety features designed for modern architecture.</p>
+        </div>
+
+        <div class="installations-container">
+            <!-- Residential Installation -->
+            <div class="installation-card fade-in">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Residential Elevator">
+                    <span class="card-badge">Popular</span>
+                </div>
+                <div class="card-content">
+                    <h3>Residential Elevators</h3>
+                    <p>Luxury home elevators that blend seamlessly with your interior design while providing smooth, quiet operation.</p>
+                    
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Space-saving designs</li>
+                        <li><i class="fas fa-check-circle"></i> Whisper-quiet operation</li>
+                        <li><i class="fas fa-check-circle"></i> Customizable finishes</li>
+                        <li><i class="fas fa-check-circle"></i> Energy efficient</li>
+                    </ul>
+                    
+                    <a href="#contact" class="cta-button pulse">Get a Quote</a>
+                </div>
+            </div>
+
+            <!-- Commercial Installation -->
+            <div class="installation-card fade-in" style="animation-delay: 0.2s;">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Commercial Elevator">
+                    <span class="card-badge">High Capacity</span>
+                </div>
+                <div class="card-content">
+                    <h3>Commercial Elevators</h3>
+                    <p>High-performance elevators for office buildings, hotels, and retail spaces with advanced traffic management.</p>
+                    
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> High-speed options</li>
+                        <li><i class="fas fa-check-circle"></i> Smart destination control</li>
+                        <li><i class="fas fa-check-circle"></i> ADA compliant</li>
+                        <li><i class="fas fa-check-circle"></i> Emergency systems</li>
+                    </ul>
+                    
+                    <a href="#contact" class="cta-button pulse">Request Consultation</a>
+                </div>
+            </div>
+
+            <!-- Smart Elevator -->
+            <div class="installation-card fade-in" style="animation-delay: 0.4s;">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Smart Elevator">
+                    <span class="card-badge">Innovation</span>
+                </div>
+                <div class="card-content">
+                    <h3>Smart Elevators</h3>
+                    <p>The future of vertical transportation with AI-powered predictive maintenance and touchless controls.</p>
+                    
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Biometric access</li>
+                        <li><i class="fas fa-check-circle"></i> Voice control</li>
+                        <li><i class="fas fa-check-circle"></i> Predictive maintenance</li>
+                        <li><i class="fas fa-check-circle"></i> Energy monitoring</li>
+                    </ul>
+                    
+                    <a href="#contact" class="cta-button pulse">See Technology</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Showcase -->
+        <div class="video-showcase fade-in" style="animation-delay: 0.6s;">
+            <h3>See Our Installation Process</h3>
+            <div class="video-container">
+                <iframe src="elevator-vid-1.mp4" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <!-- Technology Highlights -->
+        <div class="tech-highlights">
+            <div class="tech-item fade-in" style="animation-delay: 0.8s;">
+                <div class="tech-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Advanced Safety</h4>
+                <p>Multiple redundant safety systems including seismic detection and emergency evacuation protocols.</p>
+            </div>
+            
+            <div class="tech-item fade-in" style="animation-delay: 1s;">
+                <div class="tech-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h4>Eco-Friendly</h4>
+                <p>Regenerative drives that return energy to the building's grid, reducing overall power consumption.</p>
+            </div>
+            
+            <div class="tech-item fade-in" style="animation-delay: 1.2s;">
+                <div class="tech-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h4>Smart Technology</h4>
+                <p>IoT-connected systems that provide real-time monitoring and predictive maintenance alerts.</p>
+            </div>
+            
+            <div class="tech-item fade-in" style="animation-delay: 1.4s;">
+                <div class="tech-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <h4>High Performance</h4>
+                <p>Precision-engineered for smooth acceleration and deceleration with minimal vibration.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+                observer.observe(element);
+            });
+        };
+        
+        // Initialize animations when page loads
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+        
+        // Dynamic content loading (example)
+        function loadMoreContent() {
+            // This would be where you'd load additional content via AJAX
+            console.log("Loading more content...");
+            // In a real implementation, you would fetch content from your server here
+        }
+        
+        // Event listeners for interactive elements
+        document.querySelectorAll('.installation-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('a')) {
+                    this.querySelector('.cta-button').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
